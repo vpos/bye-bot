@@ -5,6 +5,7 @@ import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
 
+token = ""
 
 randomText = ['guys i cannot take it no more, srsly', 'i qit', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
 randString = str(random.choice(randomText))
@@ -29,15 +30,15 @@ for line in textwrap.wrap(randString, width=15):
 
 image.save('cheems_quits.png')
 
-img = open('cheems_quits.png','rb')
+img = open('cheems_quits.png','rb').read()
+f = {"file": img}
 
-token = ""
 payload = {
-"channels": "C012REL3YUW",
-"file": img
-}
+"token": token,
+"channels": ["C012REL3YUW"],
+"text":"hey",
+"filename":"cheems_quits.png"}
 
-response = requests.post('https://slack.com/api/files.upload', data=payload,
-    headers={'Content-Type': 'application/json', 'Authorization': token})
+response = requests.post('https://slack.com/api/files.upload', params=payload, files=f)
 
 print(f'Slack Response: {response.content}')
