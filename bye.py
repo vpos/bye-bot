@@ -3,6 +3,7 @@ import json
 import requests
 import textwrap
 
+from imgurpython import ImgurClient
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 
@@ -11,8 +12,10 @@ tokenFile = ''
 with open('token.json') as json_file:
     tokenFile = json.load(json_file)
 token = tokenFile['token']
+imgur_id = tokenFile['imgur_id']
+imgur_secret = tokenFile['imgur_secret']
 
-randomText = ['guys i cannot take it no more, srsly', 'i qimt, afectivly imedietly', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
+randomText = ['guys i cannot take it no more, srsly', 'i qimt, afectiv imedietly', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
 
 def quits(name):
     randString = str(random.choice(randomText))
@@ -22,7 +25,7 @@ def quits(name):
 
     color_text = 'rgb(255, 255, 255)' # white
     color_stroke = 'rgb(0, 0, 0)' # black
-    
+
     # thin border, standard text
     margin = 75
     offset = 150
@@ -44,18 +47,32 @@ def quits(name):
 
     image.save('cheems_quits.png')
 
-    img = open('cheems_quits.png','rb').read()
-    f = {"file": img}
+    # upload img section
+    client_id = imgur_id
+    client_secret = imgur_secret
 
-    # slack handler
+    client = ImgurClient(client_id, client_secret)
+    response_upload = client.upload_from_path('cheems_quits.png', config=None, anon=True)
+
+    img_url = response_upload['link']
+
+    # send webhook -- TODO change to FEVO
+    slack_webhook_url = 'https://hooks.slack.com/services/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'
+
     payload = {
-    "token": token,
-    "channels": ["GUZQAAEM7"],
-    "text":"hey",
-    "filename":"cheems_quits.png"}
+        "text": "I hereby submit my official resignation letter.",
+    "attachments": [
+        {
+            "color": "#000000",
+            "title": "Bye",
+            "image_url": img_url
+            }
+        ]
+    }
 
-    response = requests.post('https://slack.com/api/files.upload', params=payload, files=f)
+    response_slack = requests.post(slack_webhook_url, data=json.dumps(payload),
+        headers={'Content-Type': 'application/json'})
 
-    print(f'Slack Response: {response.content}')
+    print(f'Slack Response: {response_slack.content}')
 
-    return response.content
+    return response_slack.content
