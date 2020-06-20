@@ -12,7 +12,7 @@ with open('token.json') as json_file:
     tokenFile = json.load(json_file)
 token = tokenFile['token']
 
-randomText = ['guys i cannot take it no more, srsly', 'i qit', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
+randomText = ['guys i cannot take it no more, srsly', 'i qimt, afectivly imedietly', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
 randString = str(random.choice(randomText))
 
 def quits():
