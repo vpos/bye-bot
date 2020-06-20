@@ -37,10 +37,10 @@ def quits(name):
     # "date"
     today = datetime.today().date()
     today_datetime = today.strftime('%d.%m.%Y')
-    draw.text((225, 300), f"Date: {today_datetime}", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
+    draw.text((210, 300), f"Date: {today_datetime}", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
 
     # "signed"
-    draw.text((225, 315), f"Signed: {name}", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
+    draw.text((210, 315), f"Signed: {name}", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
 
     image.save('cheems_quits.png')
 
