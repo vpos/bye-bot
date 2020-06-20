@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFont
 tokenFile = ''
 with open('token.json') as json_file:
     tokenFile = json.load(json_file)
-token = tokenFile['token']
+slack_webhook_url = tokenFile['slackHookUrl']
 imgur_id = tokenFile['imgur_id']
 imgur_secret = tokenFile['imgur_secret']
 
@@ -55,9 +55,6 @@ def quits(name):
     response_upload = client.upload_from_path('cheems_quits.png', config=None, anon=True)
 
     img_url = response_upload['link']
-
-    # send webhook -- TODO change to FEVO
-    slack_webhook_url = 'https://hooks.slack.com/services/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'
 
     payload = {
         "text": "I hereby submit my official resignation letter.",
