@@ -16,7 +16,7 @@ def log_request_info():
 def home():
     return 'Pong'
 
-@app.route('/quit', methods=['POST'])
+@app.route('/qit', methods=['POST'])
 def home():
     log_request_info
     return Cheems.quits()
