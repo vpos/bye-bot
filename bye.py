@@ -13,9 +13,9 @@ with open('token.json') as json_file:
 token = tokenFile['token']
 
 randomText = ['guys i cannot take it no more, srsly', 'i qimt, afectivly imedietly', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
-randString = str(random.choice(randomText))
 
 def quits(name):
+    randString = str(random.choice(randomText))
     image = Image.open('cheems.png')
     draw = ImageDraw.Draw(image)
     font = ImageFont.truetype('arial.ttf', size=35)
@@ -50,7 +50,7 @@ def quits(name):
     # slack handler
     payload = {
     "token": token,
-    "channels": ["C012REL3YUW"],
+    "channels": ["GUZQAAEM7"],
     "text":"hey",
     "filename":"cheems_quits.png"}
 
