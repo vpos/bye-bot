@@ -1,5 +1,7 @@
 import flask
 import bye as Cheems
+import traceback
+import re
 
 from flask import request
 
@@ -18,13 +20,15 @@ def home():
 
 @app.route('/quits', methods=['POST'])
 def quits():
-    name = ''
+    name_extracted = ''
     try:
-        name = request.get_data()['user_name']
+        name = str(request.get_data())
+        name_extracted = re.search(r'user_name=(.+?)&', name, re.IGNORECASE).group(1)
     except:
+        traceback.print_exc()
         pass
 
     log_request_info()
-    return Cheems.quits(name)
+    return Cheems.quits(name_extracted)
 
 app.run()
