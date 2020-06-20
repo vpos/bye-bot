@@ -38,6 +38,7 @@ def quits(name):
         offset += font.getsize(line)[1]
 
     # "date"
+    now = datetime.now()
     today = datetime.today().date()
     today_datetime = today.strftime('%d.%m.%Y')
     draw.text((210, 300), f"Date: {today_datetime}", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
@@ -53,6 +54,8 @@ def quits(name):
 
     client = ImgurClient(client_id, client_secret)
     response_upload = client.upload_from_path('cheems_quits.png', config=None, anon=True)
+
+    print(f'{now}: Upload Response: {response_upload}')
 
     img_url = response_upload['link']
 
@@ -70,6 +73,6 @@ def quits(name):
     response_slack = requests.post(slack_webhook_url, data=json.dumps(payload),
         headers={'Content-Type': 'application/json'})
 
-    print(f'Slack Response: {response_slack.content}')
+    print(f'{now}: Slack Response: {response_slack}')
 
     return response_slack.content
