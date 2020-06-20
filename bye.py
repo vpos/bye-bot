@@ -15,7 +15,7 @@ token = tokenFile['token']
 randomText = ['guys i cannot take it no more, srsly', 'i qimt, afectivly imedietly', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
 randString = str(random.choice(randomText))
 
-def quits():
+def quits(name):
     image = Image.open('cheems.png')
     draw = ImageDraw.Draw(image)
     font = ImageFont.truetype('arial.ttf', size=35)
@@ -40,7 +40,7 @@ def quits():
     draw.text((225, 300), f"Date: {today_datetime}", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
 
     # "signed"
-    draw.text((225, 315), f"Signed: ", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
+    draw.text((225, 315), f"Signed: {name}", font=ImageFont.truetype('arial.ttf', size=10), fill='rgb(0, 0, 0)')
 
     image.save('cheems_quits.png')
 

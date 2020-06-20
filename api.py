@@ -18,7 +18,13 @@ def home():
 
 @app.route('/quits', methods=['POST'])
 def quits():
+    name = ''
+    try:
+        name = request.get_data()['user_name']
+    except:
+        pass
+
     log_request_info()
-    return Cheems.quits()
+    return Cheems.quits(name)
 
 app.run()
