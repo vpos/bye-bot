@@ -20,15 +20,17 @@ def home():
 
 @app.route('/quits', methods=['POST'])
 def quits():
+    log_request_info()
+
     name_extracted = ''
+    text_extracted = ''
     try:
         name = str(request.get_data())
         name_extracted = re.search(r'user_name=(.+?)&', name, re.IGNORECASE).group(1)
     except:
         traceback.print_exc()
         pass
-
-    log_request_info()
-    return Cheems.quits(name_extracted)
+    
+    return Cheems.quits(name_extracted, text_extracted)
 
 app.run()

@@ -17,11 +17,18 @@ imgur_secret = tokenFile['imgur_secret']
 
 randomText = ['guys i cannot take it no more, srsly', 'i qimt, afectiv imedietly', 'much sad, very quit', 'goobdye crul dev worl', 'screw u guys, im out', 'sry guys, i qit']
 
-def quits(name):
-    randString = str(random.choice(randomText))
+def quits(name, text):
+    if len(text) == 0:
+        print('Randomizing the text.')
+        text = str(random.choice(randomText))
+
     image = Image.open('cheems.png')
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype('arial.ttf', size=35)
+
+    textLen = len(text)
+    fontSize = int(abs(35 - ((textLen*15)/135))) # 135 since its the size of text beginning till Date line. 15 because its the textwrap width
+
+    font = ImageFont.truetype('arial.ttf', size=fontSize)
 
     color_text = 'rgb(255, 255, 255)' # white
     color_stroke = 'rgb(0, 0, 0)' # black
@@ -29,7 +36,7 @@ def quits(name):
     # thin border, standard text
     margin = 75
     offset = 150
-    for line in textwrap.wrap(randString, width=15):
+    for line in textwrap.wrap(text, width=15):
         draw.text((margin-1, offset), line, font=font, fill=color_stroke)
         draw.text((margin+1, offset), line, font=font, fill=color_stroke)
         draw.text((margin, offset-1), line, font=font, fill=color_stroke)
@@ -58,6 +65,7 @@ def quits(name):
     print(f'{now}: Upload Response: {response_upload}')
 
     img_url = response_upload['link']
+    print(img_url)
 
     payload = {
         "text": "I hereby submit my official resignation letter.",
