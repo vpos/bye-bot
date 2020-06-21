@@ -22,11 +22,18 @@ def home():
 def quits():
     log_request_info()
 
+    requestString = str(request.get_data())
     name_extracted = ''
     text_extracted = ''
     try:
-        name = str(request.get_data())
-        name_extracted = re.search(r'user_name=(.+?)&', name, re.IGNORECASE).group(1)
+        name_extracted = re.search(r'user_name=(.+?)&', requestString, re.IGNORECASE).group(1)
+    except:
+        traceback.print_exc()
+        pass
+
+    try:
+        text_extracted = re.search(r'text=%22(.+?)%', requestString, re.IGNORECASE).group(1)
+        text_extracted = text_extracted.replace("+", " ")
     except:
         traceback.print_exc()
         pass
